@@ -1,13 +1,16 @@
 <script setup>
-
+import NavBar from './components/NavBar.vue'
 </script>
 
 <template>
   <header>
+    <!-- Nav Component-->
+    <NavBar/>
+    <!-- Footer Component -->
+
 
   </header>
 
-  <RouterView />
 </template>
 
 <style scoped>

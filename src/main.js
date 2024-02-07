@@ -24,3 +24,4 @@ app.use(router)
 app.use(bootstrap)
 
 app.mount('#app')
+
