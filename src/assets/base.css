@@ -1,8 +1,12 @@
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+  color: #1E0A0A;
+  background-color: #C9C5BE;
 }
 
 .title {
@@ -10,4 +14,16 @@ body {
   justify-content: center;
   padding-top: 10vh;
   padding-bottom: 2vh;
+}
+
+.button {
+  background-color: #C9C5BE;
+  color: #1E0A0A;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.button:hover {
+  opacity: 0.8;
 }

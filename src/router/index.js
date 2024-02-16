@@ -1,6 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import AstronomyPicture from '../views/AstronomyPicture.vue'; 
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import AstronomyPicture from '../views/AstronomyPicture.vue';
+import NasaLibrary from '../views/NasaLibrary.vue';
 
 
 const router = createRouter({
@@ -22,8 +23,13 @@ const router = createRouter({
       {
     path: '/astronomy-picture',
     name: 'AstronomyPicture',
-    component: AstronomyPicture, // Lägg till denna route
+    component: AstronomyPicture, // route för Astronimic picture
   },
+    {
+      path: '/nasa-library',
+      name: 'NasaLibrary',
+      component: NasaLibrary,
+    }
   ]
 })
 

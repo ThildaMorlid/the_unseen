@@ -1,8 +1,17 @@
 <script setup>
+import InteractiveSky from '../components/InteractiveSky.vue'
+
+
 </script>
 
 <template>
-  <main>
-    <h1></h1>
-  </main>
+  <div>
+    <!-- Detta är specifikt innehåll för startsidan -->
+    <InteractiveSky />
+    <!-- Lägg till mer innehåll för startsidan här -->
+  </div>
 </template>
+
+<style scoped>
+/* Stilar specifika för startsidan */
+</style>
