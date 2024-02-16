@@ -3,6 +3,7 @@ import './assets/base.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
+
 // Lägger in Bootstrap CSS stilar
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -24,4 +25,3 @@ app.use(router)
 app.use(bootstrap)
 
 app.mount('#app')
-

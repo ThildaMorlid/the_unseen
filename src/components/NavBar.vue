@@ -23,6 +23,7 @@ import { RouterLink, RouterView } from 'vue-router';
           <!-- Offcanvas body här, lägg till innehåll eller länkar som behövs -->
           <div class="offcanvas-body">
             <RouterLink class="nav-link" to="/astronomy-picture">Astronomy Picture of the Day</RouterLink>
+            <RouterLink class="nav-link" to="/nasa-library">Nasa Library</RouterLink>
 
             <!-- Länkar eller annat navigationsinnehåll kan läggas här -->
           </div>
@@ -32,3 +33,15 @@ import { RouterLink, RouterView } from 'vue-router';
   </header>
   <RouterView />
 </template>
+
+<style scoped>
+.navbar {
+  background-color: #C9C5BE;
+  color: #1E0A0A;
+}
+
+.navbar-brand,
+.nav-link {
+  color: #1E0A0A;
+}
+</style>
