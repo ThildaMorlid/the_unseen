@@ -1,9 +1,16 @@
 <script setup>
 import { onMounted } from 'vue';
 import { useNasaStore } from '@/stores/nasaStore';
+import AstronomyImageDetails from '@/components/AstronomyImageDetails.vue';
+
 
 const nasaStore = useNasaStore();
 const apiKey = '56dHYtRIrVBa7FjpJkTa3tumbEOAZbaAUh2YXG3c';
+
+function onImageClicked(isEnlarged) {
+  console.log('Bilden är nu', isEnlarged ? 'förstorad' : 'normalstorlek');
+  // Här kan du lägga till mer logik, t.ex. öppna bilden i en modal för fullskärmsvisning
+}
 
 onMounted(() => {
   nasaStore.fetchAstronomyPicture(apiKey);
@@ -16,13 +23,16 @@ onMounted(() => {
     <div v-if="nasaStore.loading" class="loading">Laddar data...</div>
     <div v-else-if="nasaStore.error" class="error">{{ nasaStore.error }}</div>
     <div v-else-if="nasaStore.apodData" class="image-container">
-      <img :src="nasaStore.apodData.url" alt="Astronomy Picture of the Day" class="apod-image" />
-      <div class="image-details">
-        <h2>{{ nasaStore.apodData.title }}</h2>
-        <p>{{ nasaStore.apodData.explanation }}</p>
-      </div>
+          <AstronomyImageDetails
+        :title="nasaStore.apodData.title"
+        :explanation="nasaStore.apodData.explanation"
+        :imageUrl="nasaStore.apodData.url"
+        @imageClicked="onImageClicked"
+      />
     </div>
+
   </div>
+
 </template>
 
 <style scoped>
@@ -31,7 +41,7 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color: #C9C5BE;
+
   color: #1E0A0A;
   width: 100%;
   box-sizing: border-box;

@@ -17,52 +17,44 @@ Interaktiv "Ficklampa" ned dold textkomponent
 </template>
 
 <script>
-
-// Importerar bakgrundsbilden från projektets assets
+import { onMounted, onBeforeUnmount, ref } from 'vue';
 import backgroundImg from '@/assets/img/inverted-sky-background.jpg';
 
 export default {
-  data() {
-    // Lagrar bakgrundsbilden så att den kan användas i komponenten
-    return {
-      backgroundImage: backgroundImg,
-    };
-  },
-  mounted() { // Lägger till händelselyssnare för musrörelser när komponenten är monterad
-    document.addEventListener('mousemove', this.handleMouseMove);
-    document.addEventListener('mousemove', this.moveFlashlight);
-  },
-  beforeDestroy() {
-    // Tar bort händelselyssnare när komponenten förstörs för att undvika minnesläckor
-    document.removeEventListener('mousemove', this.handleMouseMove);
-    document.removeEventListener('mousemove', this.moveFlashlight);
-  },
-  methods: {
-    // gör så att bakgrunden känns stor och "åker" med musrörelsen
-    handleMouseMove(e) {
-       if (this.$refs.spaceBackground) {
+  setup() {
+    const spaceBackground = ref(null);
+    const flashlight = ref(null);
+
+    const handleMouseMove = (e) => {
       const width = window.innerWidth;
       const height = window.innerHeight;
       const mouseX = e.clientX;
       const mouseY = e.clientY;
-      // Beräknar & lägger till nya posittionen för bakgrundsbilden
       const bgPosX = ((mouseX / width) * 100) - 50;
       const bgPosY = ((mouseY / height) * 100) - 50;
-      this.$refs.spaceBackground.style.backgroundPosition = `${bgPosX}% ${bgPosY}%`;
-      }
-    },
-    // Flyttar "ficklampan" baserat på musens position
-    moveFlashlight(e) {
-      if (this.$refs.flashlight) {
-        const flashlight = this.$refs.flashlight;
-        flashlight.style.left = `${e.pageX - (flashlight.offsetWidth / 2)}px`;
-        flashlight.style.top = `${e.pageY - (flashlight.offsetHeight / 2)}px`;
-      }
-    },
-    }
-  }
-</script>
 
+      if (spaceBackground.value) {
+        spaceBackground.value.style.backgroundPosition = `${bgPosX}% ${bgPosY}%`;
+      }
+
+      if (flashlight.value) {
+        flashlight.value.style.left = `${e.pageX - (flashlight.value.offsetWidth / 2)}px`;
+        flashlight.value.style.top = `${e.pageY - (flashlight.value.offsetHeight / 2)}px`;
+      }
+    };
+
+    onMounted(() => {
+      document.addEventListener('mousemove', handleMouseMove);
+    });
+
+    onBeforeUnmount(() => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    });
+
+    return { spaceBackground, flashlight, backgroundImage: backgroundImg };
+  }
+};
+</script>
 
 <style scoped>
 /* CSS för bakgrundselement som visar stjärnhimlen */

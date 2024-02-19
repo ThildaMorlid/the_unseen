@@ -36,7 +36,7 @@ import { RouterLink, RouterView } from 'vue-router';
 
 <style scoped>
 .navbar {
-  background-color: #C9C5BE;
+  background-color: #644e27;
   color: #1E0A0A;
 }
 

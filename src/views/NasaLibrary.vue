@@ -28,134 +28,175 @@
 </template>
 
 <script>
-import axios from 'axios'; // Importerar axios för att göra HTTP-anrop
+import axios from 'axios'; // Importerar axios för att göra ett HTTP anrop
 
 export default {
   data() {
-    // Definierar komponentens reaktiva data
+    // Datafunktionen returnerar ett objekt
     return {
-      searchQuery: '', // Sökvärdet från användaren
-      items: [], // Lagrar hämtade artiklar från API
-      itemCount: 10, // Antalet artiklar att visa initialt
-      loading: false, // Flagga för att visa laddningsindikator
-      error: '' // För att lagra felmeddelanden
+      searchQuery: '', // Lagrar söksträng från anv
+      items: [], // En array för att lagra sök resultat
+      itemCount: 10, // Antal artiklar som visas i taget
+      loading: false, // En flagga för att visa laddningen
+      error: '' // en sträng för att visa felmeddelande
     };
   },
   computed: {
-    // Beräknad egenskap för att hantera paginering av artiklar
+    // Beräknade egenskaper
     paginatedItems() {
-      // Returnerar en del av artiklarna baserat på itemCount
+      // Visas en del av 'items' baserat på 'itemcount'
       return this.items.slice(0, this.itemCount);
     }
   },
+  watch: {
+    // En "watch" som lyssnar på förändring i searchQuery
+    searchQuery: {
+      handler(newVal, oldVal) {
+        // funktion som körs varje gång 'searchQuery' ändras
+        if (newVal !== oldVal) {
+          this.fetchImages(); // Anropa 'fetchImages' för att uppdatera sökresultatet
+        }
+      },
+      immediate: true, // Kör handler direkt vid start
+    }
+  },
   methods: {
-    // Metod för att hämta bilder baserat på sökfrågan
     async fetchImages() {
-      // Kontrollerar om sökfrågan är tom
+      // Asynkron funktion för att hämta bilder baserat på vad anv skriver
       if (!this.searchQuery) {
-        this.error = "Please enter a search query."; // Sätter felmeddelande
-        return; // Avbryter funktionen
+        this.error = "Sök efter något spaceat";
+        return;
       }
-      this.loading = true; // Startar laddningsindikator
-      this.error = ''; // Rensar tidigare felmeddelanden
+      this.loading = true; // visar laddningsindikatorn
+      this.error = ''; // rensa tidigare felmeddelenaden
       try {
-        // Gör en GET-förfrågan till NASA:s API med sökfrågan
+        // HTTP anrop till nasas bild-API
         const response = await axios.get(`https://images-api.nasa.gov/search?q=${encodeURIComponent(this.searchQuery)}`);
-        this.items = response.data.collection.items; // Lagrar svaret i items
+        this.items = response.data.collection.items;
       } catch (error) {
-        console.error("Error fetching images: ", error); // Loggar eventuella fel
-        this.error = 'Failed to fetch images. Please try again later.'; // Sätter felmeddelande
+        console.error("Error fetching images: ", error);
+        this.error = 'Failed to fetch images. Please try again later.';
       } finally {
-        this.loading = false; // Avslutar laddningsindikator
+        this.loading = false;
       }
     },
-    // Metod för att ladda fler artiklar
     loadMore() {
-      this.itemCount += 10; // Ökar itemCount med 10 för att visa fler artiklar
+      // funktionen för att ladda in fler artiklar
+      this.itemCount += 10; //öka 'itemCount' med 10
     }
   }
 };
 </script>
 
 
+
+
 <style scoped>
 /* Grundläggande stil för hela biblioteksdelen */
 .nasa-library {
-  margin-top: 80px; /* Ger utrymme mellan navbar och innehåll */
+  margin-top: 80px;
+  /* Ger utrymme mellan navbar och innehåll */
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsiv grid layout */
-  gap: 20px; /* Utrymme mellan grid-element */
-  padding: 20px; /* Padding runt innehållet */
-  color: #1E0A0A; /* Textfärg */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* Responsiv grid layout */
+  gap: 20px;
+  /* Utrymme mellan grid-element */
+  padding: 20px;
+  /* Padding runt innehållet */
+  color: #1E0A0A;
+  /* Textfärg */
 }
 
 /* Stil för varje artikel/item */
 .item {
-  background-color: #fff; /* Bakgrundsfärg för artiklar */
-  padding: 20px; /* Padding inuti artiklar */
-  border: 1px solid #ddd; /* Ram runt artiklar */
-  margin-bottom: 20px; /* Utrymme under artiklar */
+  background-color: #fff;
+  /* Bakgrundsfärg för artiklar */
+  padding: 20px;
+  /* Padding inuti artiklar */
+  border: 1px solid #ddd;
+  /* Ram runt artiklar */
+  margin-bottom: 20px;
+  /* Utrymme under artiklar */
   display: flex;
   flex-direction: column;
-  max-height: 600px; /* Maxhöjd för artikeln */
-  overflow: hidden; /* Döljer innehåll som överskrider maxhöjden */
+  max-height: 600px;
+  /* Maxhöjd för artikeln */
+  overflow: hidden;
+  /* Döljer innehåll som överskrider maxhöjden */
 }
 
 /* Stil för sökfält och knapp */
 .search-bar {
   display: flex;
-  justify-content: center; /* Centrerar sökfält och knapp */
-  margin-bottom: 20px; /* Utrymme under sökfältet */
+  justify-content: center;
+  /* Centrerar sökfält och knapp */
+  margin-bottom: 20px;
+  /* Utrymme under sökfältet */
   width: 100%;
-  max-width: 600px; /* Begränsar bredden för att förhindra att den blir för stor */
+  max-width: 600px;
+  /* Begränsar bredden för att förhindra att den blir för stor */
 }
 
-.search-input, .search-button {
-  height: 40px; /* Standardhöjd för att förhindra storleksändring */
+.search-input,
+.search-button {
+  height: 40px;
+  /* Standardhöjd för att förhindra storleksändring */
 }
 
 .search-input {
-  flex-grow: 1; /* Låter sökfältet expandera och ta upp tillgängligt utrymme */
-  margin-right: 10px; /* Utrymme mellan sökfält och sökknapp */
-  border: 2px solid #1E0A0A; /* Ramfärg */
+  flex-grow: 1;
+  /* Låter sökfältet expandera och ta upp tillgängligt utrymme */
+  margin-right: 10px;
+  /* Utrymme mellan sökfält och sökknapp */
+  border: 2px solid #1E0A0A;
+  /* Ramfärg */
 }
 
 /* Gemensam stil för knappar */
-.search-button, .load-more-button {
-  white-space: nowrap; /* Förhindrar textbrottning */
+.search-button,
+.load-more-button {
+  white-space: nowrap;
+  /* Förhindrar textbrottning */
 }
 
 /* Stil för bilder */
 .image {
   max-width: 100%;
-  height: auto; /* Automatisk höjd baserat på bredden */
-  border-radius: 8px; /* Rundade hörn */
+  height: auto;
+  /* Automatisk höjd baserat på bredden */
+  border-radius: 8px;
+  /* Rundade hörn */
 }
 
 /* Artikeltext med skroll */
 .item p {
-  overflow-y: auto; /* Aktiverar vertikal skrollning */
-  max-height: 200px; /* Maxhöjd för texten */
-  margin-top: 20px; /* Utrymme ovanför texten */
+  overflow-y: auto;
+  /* Aktiverar vertikal skrollning */
+  max-height: 200px;
+  /* Maxhöjd för texten */
+  margin-top: 20px;
+  /* Utrymme ovanför texten */
 }
 
 /* Stilar för laddningsindikator, felmeddelanden och 'inga resultat'-text */
 .loading,
 .error-message,
 .no-results {
-  text-align: center; /* Centrerar texten */
-  margin-top: 20px; /* Utrymme ovanför */
+  text-align: center;
+  /* Centrerar texten */
+  margin-top: 20px;
+  /* Utrymme ovanför */
 }
 
 /* Specifik stil för felmeddelanden */
 .error-message {
-  color: #FF0000; /* Röd färg för felmeddelanden */
+  color: #FF0000;
+  /* Röd färg för felmeddelanden */
 }
 
 /* Extra marginal under 'Ladda fler'-knappen */
 .button-container {
-  margin-bottom: 40px; /* Justera detta värde efter behov */
+  margin-bottom: 40px;
+  /* Justera detta värde efter behov */
 }
-
-
 </style>
