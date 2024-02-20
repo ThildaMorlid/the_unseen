@@ -8,7 +8,6 @@ import { RouterLink } from 'vue-router';
         <RouterLink class="footer-brand" to="/">UNSEEN</RouterLink>
         <div class="footer-links">
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
-          <RouterLink to="/contact-us">Kontakta Oss</RouterLink>
         </div>
       </div>
     </footer>

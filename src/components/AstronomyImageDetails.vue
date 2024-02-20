@@ -27,10 +27,40 @@ function toggleImageSize() {
 </template>
 
 <style scoped>
-.apod-image {
-  transition: transform 0.3s ease;
+
+.enlarged {
+  transform: scale(2); /* Dubblar bildens storlek */
+  cursor: zoom-out; /* Visar att bilden kan klickas för att återgå till normal storlek */
+  z-index: 10; /* Ser till att bilden visas ovanpå andra element */
+  position: relative; /* Nödvändigt för att z-index ska fungera korrekt */
 }
 
+.image-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+h2, p {
+    color: #1E0A0A;
+ /* Enhällig textfärg för titel och beskrivning */
+  max-width: 90%; /* Begränsar textens bredd för bättre läsbarhet på breda skärmar */
+  margin: 20px 0; /* Ger utrymme mellan elementen */
+}
+
+p {
+  line-height: 1.6; /* Ökar radavståndet */
+}
+
+.apod-image {
+  transition: transform 0.3s ease; /* Gör övergången mjuk */
+  cursor: zoom-in; /* Visar att bilden kan klickas för att förstoras */
+  max-width: 100%; /* Ser till att bilden aldrig överskrider sin behållares bredd */
+  border-radius: 8px; /* Behåller rundade hörn */
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1); /* Lägger till en subtil skugga för djup */
+}
 .enlarged {
   transform: scale(1.5);
   /* Förstorar bilden */

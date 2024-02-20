@@ -9,7 +9,6 @@ const apiKey = '56dHYtRIrVBa7FjpJkTa3tumbEOAZbaAUh2YXG3c';
 
 function onImageClicked(isEnlarged) {
   console.log('Bilden är nu', isEnlarged ? 'förstorad' : 'normalstorlek');
-  // Här kan du lägga till mer logik, t.ex. öppna bilden i en modal för fullskärmsvisning
 }
 
 onMounted(() => {
@@ -49,6 +48,7 @@ onMounted(() => {
 
 .title {
   font-size: 2.5rem;
+  font-weight: bold;
   margin: 20px 0;
   width: 80%;
   text-align: center;
@@ -60,27 +60,8 @@ onMounted(() => {
   align-items: center;
   width: 100%;
   max-width: 1200px;
-  /* Ökar maxbredden för att bättre utnyttja utrymmet på större skärmar */
 }
 
-.apod-image {
-  width: 100%;
-  max-width: 600px;
-  /* Justerar maxbredden för bilden för att förhindra att den blir för stor */
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-.image-details {
-  width: 100%;
-  max-width: 600px;
-  /* Justerar maxbredden för textområdet för att matcha bilden */
-  text-align: justify;
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
 
 .loading {
   font-size: 1.5rem;
@@ -91,14 +72,11 @@ onMounted(() => {
   .apod-container {
     flex-direction: row;
     justify-content: space-around;
-    /* Ändrar till space-around för att ge utrymme mellan bild och text */
     align-items: flex-start;
     flex-wrap: wrap;
-    /* Tillåter innehållet att omslutas vid behov */
   }
 
-  .image-container,
-  .image-details {
+   .image-details {
     width: 90%;
     /* Justerar bredden för att tilldela lika utrymme till bild och text */
     margin: 20px;
