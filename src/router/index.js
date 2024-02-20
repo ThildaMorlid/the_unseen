@@ -11,18 +11,23 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
-      {
-    path: '/astronomy-picture',
-    name: 'AstronomyPicture',
-    component: AstronomyPicture, // route för Astronimic picture
-  },
+    {
+      path: '/astronomy-picture',
+      name: 'AstronomyPicture',
+      component: AstronomyPicture,
+    },
     {
       path: '/nasa-library',
       name: 'NasaLibrary',
-      component: NasaLibrary, // route för Nasa Library
+      component: NasaLibrary,
+    },
+    {
+
+      path: '/nasa-library/:id',
+      name: 'NasaLibraryDetail',
+      component: () => import('../views/NasaLibraryDetail.vue') 
     }
-
   ]
-})
+});
 
-export default router
+export default router;

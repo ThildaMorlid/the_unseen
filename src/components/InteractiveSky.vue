@@ -1,4 +1,3 @@
-
 <!-- INFORMATION OM DEN HÄR KODDELEN
 Interaktiv "Ficklampa" ned dold textkomponent
 
@@ -12,11 +11,12 @@ Interaktiv "Ficklampa" ned dold textkomponent
     <!-- "Ficklampa" som följer muspekaren för att avslöja text -->
     <div class="flashlight" ref="flashlight"></div>
     <!-- Text som är vit som syns när muspekaren dras över texten -->
-    <div class="hidden-text">Här finns text som handlar om minnen om mörker</div>
+    <div class="hidden-text">UNSEEN</div>
   </div>
 </template>
 
 <script>
+import { gsap } from 'gsap';
 import { onMounted, onBeforeUnmount, ref } from 'vue';
 import backgroundImg from '@/assets/img/inverted-sky-background.jpg';
 
@@ -45,6 +45,22 @@ export default {
 
     onMounted(() => {
       document.addEventListener('mousemove', handleMouseMove);
+
+      // Skapar en djupare "åka inåt"-effekt genom att animera skalningen av bakgrundselementet
+      gsap.to(spaceBackground.value, {
+        duration: 20, // Längden på animationen
+        scale: 2.0, // Ökar skalan lite för att skapa en känsla av djup
+
+        ease: "linear", // Använder en linjär easing för en jämn animation
+        repeat: -1, // Upprepar animationen i oändlighet
+        yoyo: true // Går tillbaka till ursprungsskalan för att skapa en loop-effekt
+      });
+
+      // Animerar in texten med en fördröjning
+      gsap.from('.hidden-text', { duration: 1, delay: 0.5, y: 20, opacity: 0, ease: 'power2.out' });
+      gsap.to(flashlight.value, { duration: 2, opacity: 0.5, repeat: -1, yoyo: true });
+
+
     });
 
     onBeforeUnmount(() => {
@@ -59,14 +75,20 @@ export default {
 <style scoped>
 /* CSS för bakgrundselement som visar stjärnhimlen */
 #space-background {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   background-image: url('@/assets/img/inverted-sky-background.jpg');
   background-size: cover;
   background-position: center;
-  transition: background-position 0.5s ease-out;
-  /* Ger en mjuk övergångseffekt */
+  transform-origin: center center;
+  transform: scale();
+
+  /* Initial skala satt till 1 */
 }
+
 
 /* Grundläggade stil för den inverterade, mörka bakgrunden */
 .dark-background {
@@ -108,7 +130,6 @@ export default {
   /* Gör så att muspekaren inte interagerar med div-en */
   mix-blend-mode: difference;
   /* Nyckeln till effekten */
-  box-shadow: inset 0 0 40px 10px rgba(0, 0, 0, 0.5);
   filter: blur(100px);
 }
 
@@ -119,5 +140,7 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-size: 4rem;
+
 }
 </style>
