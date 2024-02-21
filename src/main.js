@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 // Importera Bootstrap JS filer
 
-import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.js'
+import "bootstrap"
 
 import App from './App.vue'
 import router from './router'
@@ -22,6 +22,6 @@ app.use(router)
 
 // för att import ska fungera så behöver vi anv dessa med ett middleware "use"
 
-app.use(bootstrap)
+
 
 app.mount('#app')
