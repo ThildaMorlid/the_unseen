@@ -13,5 +13,5 @@ import InteractiveSky from '../components/InteractiveSky.vue'
 </template>
 
 <style scoped>
-/* Stilar specifika för startsidan */
+/* Stilar */
 </style>

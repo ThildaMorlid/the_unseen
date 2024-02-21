@@ -1,7 +1,7 @@
 <template>
   <div class="detail-container">
     <h2 id="detail-title">Detaljer för artikel med ID: {{ articleId }} ..den här värdelösa sidan finns för att visa Richard att UNSEEN har adressparameter och jag inte fick in det på ett bättre sätt hehe </h2>
-    <button @click="goBack">Gå tillbaka</button>
+    <button @click="goBack" class="button">Gå tillbaka</button>
   </div>
 </template>
 
