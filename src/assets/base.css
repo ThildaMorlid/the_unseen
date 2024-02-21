@@ -17,13 +17,32 @@ body {
 }
 
 .button {
-  background-color: #C9C5BE;
-  color: #1E0A0A;
+  padding: 10px 15px;
+  /* Justerbar padding för att passa innehållet i knappen */
   border: none;
-  padding: 10px 20px;
+  /* Tar bort standardramen */
+  border-radius: 20px;
+  /* Ger knappen rundade hörn */
+  background-color: #C9C5BE;
+  /* Bakgrundsfärgen du angav */
+  color: #1E0A0A;
+  /* Textfärgen du angav */
+  font-weight: bold;
+  /* Gör texten fetare */
   cursor: pointer;
+  /* Ändrar muspekaren till en pekande hand */
+  transition: all 0.3s ease;
+  /* Smidig övergång för hover-effekter */
 }
 
 .button:hover {
-  opacity: 0.8;
+  background-color: #B2AFA9;
+  /* En mörkare nyans när muspekaren är över knappen */
+  transform: scale(1.1);
+  /* Förstorar knappen lite för att ge feedback till användaren */
+}
+
+.button:active {
+  transform: scale(0.95);
+  /* Ger en intryckeffekt när knappen klickas */
 }

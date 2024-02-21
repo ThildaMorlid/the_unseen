@@ -1,38 +1,43 @@
 <script setup>
+// Importerar 'onMounted' från Vue, används för att köra kod efter att komponenten har monterats.
 import { onMounted } from 'vue';
+// Importerar 'useNasaStore' för att använda globalt tillståndshantering för NASAs API.
 import { useNasaStore } from '@/stores/nasaStore';
+// Importerar komponenten 'AstronomyImageDetails' för att visa detaljer om NASAs astronomibild.
 import AstronomyImageDetails from '@/components/AstronomyImageDetails.vue';
 
-
+// Använder 'useNasaStore' för att skapa en instans av nasaStore.
 const nasaStore = useNasaStore();
+// Definierar en apiKey som används för att autentisera anrop till NASAs API.
 const apiKey = '56dHYtRIrVBa7FjpJkTa3tumbEOAZbaAUh2YXG3c';
 
+// Funktion som körs när en bild klickas, loggar om bilden är förstorad eller i normalstorlek.
 function onImageClicked(isEnlarged) {
   console.log('Bilden är nu', isEnlarged ? 'förstorad' : 'normalstorlek');
 }
 
+// 'onMounted' hook som körs när komponenten har monterats, anropar 'fetchAstronomyPicture' i nasaStore.
 onMounted(() => {
   nasaStore.fetchAstronomyPicture(apiKey);
 });
 </script>
 
+
 <template>
   <div class="apod-container">
     <h1 class="title">Astronomy Picture of the Day</h1>
+    <!-- Visar en laddningstext när data laddas -->
     <div v-if="nasaStore.loading" class="loading">Laddar data...</div>
+    <!-- Visar ett felmeddelande om det finns något fel -->
     <div v-else-if="nasaStore.error" class="error">{{ nasaStore.error }}</div>
+    <!-- Visar bildinformation om data finns tillgänglig -->
     <div v-else-if="nasaStore.apodData" class="image-container">
-          <AstronomyImageDetails
-        :title="nasaStore.apodData.title"
-        :explanation="nasaStore.apodData.explanation"
-        :imageUrl="nasaStore.apodData.url"
-        @imageClicked="onImageClicked"
-      />
+      <AstronomyImageDetails :title="nasaStore.apodData.title" :explanation="nasaStore.apodData.explanation"
+        :imageUrl="nasaStore.apodData.url" @imageClicked="onImageClicked" />
     </div>
-
   </div>
-
 </template>
+
 
 <style scoped>
 .apod-container {

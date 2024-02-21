@@ -9,7 +9,7 @@
       <!-- Sökfältet binder dess värde till 'searchQuery' och triggar 'fetchImages' när Enter trycks -->
       <input v-model="searchQuery" @keyup.enter="fetchImages" placeholder="Skriv något om rymden" class="search-input">
       <!-- Sökknapp som också triggar 'fetchImages' -->
-      <button @click="fetchImages" class="search-button">Sök</button>
+      <button @click="fetchImages" class="search-button button">Sök</button>
     </div>
 
     <!-- Visar att det laddas när bilder hämtas -->
@@ -25,13 +25,13 @@
         <img v-if="item.links" :src="item.links[0].href" :alt="item.data[0].title" class="image" />
         <p>{{ item.data[0].description }}</p>
         <!-- Knapp för att visa detaljer - visuellt hjälpmedel för användaren -->
-        <button class="detail-button">Visa artikel ID</button>
+        <button class="detail-button button">Visa artikel ID</button>
       </div>
     </div>
 
     <!-- En knapp för att ladda fler bilder om det finns fler att visa -->
     <div class="button-container" v-if="items.length > paginatedItems.length">
-      <button @click="loadMore" class="load-more-button">Ladda fler</button>
+      <button @click="loadMore" class="load-more-button button">Ladda fler</button>
     </div>
   </div>
 </template>
